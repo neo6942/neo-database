@@ -1,3 +1,2 @@
-# neo-database
-
-# All of my viruses and fnf mods and shits
+# Neo Database
+All of my viruses.
